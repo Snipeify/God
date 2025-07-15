@@ -48,6 +48,7 @@ body {
   margin-top: 20vh;
   animation: glowAnim 2s ease-in-out infinite alternate;
   text-shadow: 0 0 10px #fff, 0 0 20px #ccc;
+  transition: color 1s ease;
 }
 
 @keyframes glowAnim {
@@ -67,6 +68,7 @@ body {
 #byLine {
   font-size: 1.2em;
   margin-top: 10px;
+  transition: opacity 1s ease;
 }
 
 .bottom-right {
@@ -76,6 +78,7 @@ body {
   text-align: right;
   animation: slideUp 2s ease forwards;
   backdrop-filter: blur(3px);
+  transition: opacity 1s ease;
 }
 
 .open {
@@ -111,12 +114,21 @@ body {
   font-size: 2.5em;
   color: #bbb;
   z-index: 5;
+  font-weight: 600;
 }
 
 .scroll-names::after {
-  content: "Xuyis • INVATIVITY • Almighty • Asus • Sanuuly • Umi • Rusk • Sharn • Zvmt1 • Bryson • JuntBusta • Tav • ";
+  content: "Xuyis • INVATIVITY • Almighty • Asus • ";
   animation: scrollText 240s linear infinite;
   display: inline-block;
+}
+
+.scroll-names span {
+  white-space: nowrap;
+}
+
+.scroll-names span.sanuuly {
+  color: yellow;
 }
 
 @keyframes scrollText {
