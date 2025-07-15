@@ -46,4 +46,31 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Final transition after 4:07
-  function
+  function finalTransition() {
+    byLine.style.opacity = "0";
+    openMessage.style.opacity = "0";
+    sorryText.textContent = "Thanks for the memories <3";
+    sorryText.classList.remove("glow");
+  }
+
+  clickOverlay.addEventListener("click", async () => {
+    clickOverlay.classList.add("fadeOut");
+
+    setTimeout(() => {
+      clickOverlay.style.display = "none";
+      mainContent.style.display = "block";
+
+      document.querySelectorAll(".fade-in").forEach(el => {
+        el.classList.add("visible");
+      });
+
+      bgm.volume = 1.0;
+      bgm.play().catch(() => {
+        alert("Audio autoplay failed. Click the page again to allow it.");
+      });
+
+      rotateByNames();
+      setTimeout(finalTransition, 247000);
+    }, 1000);
+  });
+});
