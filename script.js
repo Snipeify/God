@@ -20,6 +20,8 @@ const names = [
 let index = 0;
 const nameSpan = document.getElementById("nameCycle");
 const byLine = document.getElementById("byLine");
+const overlay = document.getElementById("overlay");
+const bgm = document.getElementById("bgm");
 
 function cycleNames() {
   const name = names[index];
@@ -51,23 +53,8 @@ setTimeout(() => {
   document.getElementById("finalMessage").style.display = "block";
 }, 247000);
 
-// Audio autoplay with user interaction fallback
-const bgm = document.getElementById("bgm");
-
-function tryPlayAudio() {
-  const playPromise = bgm.play();
-  if (playPromise !== undefined) {
-    playPromise.catch(() => {
-      // Play on first user interaction
-      document.body.addEventListener(
-        "click",
-        () => {
-          bgm.play();
-        },
-        { once: true }
-      );
-    });
-  }
-}
-
-tryPlayAudio();
+// Wait for user to click overlay to start audio
+overlay.addEventListener("click", () => {
+  bgm.play();
+  overlay.style.display = "none";
+});
