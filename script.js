@@ -19,13 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const openMessage = document.getElementById("openMessage");
   const bgm = document.getElementById("bgm");
 
-  // Fill top scroller with names
-  scrollNamesInner.innerHTML =
-    nameList.map(name =>
+  // Fix: Make sure scroll area is filled
+  if (scrollNamesInner) {
+    scrollNamesInner.innerHTML = nameList.map(name =>
       `<span class="${name === "Sanuuly" ? "sanuuly" : ""}">${name}</span>`
     ).join(" ") + scrollNamesInner.innerHTML;
+  }
 
-  // Cycle -By names
   function rotateByNames(index = 0) {
     if (index >= cycleNames.length) {
       byLine.style.opacity = "0";
@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => rotateByNames(index + 1), delay);
   }
 
-  // Final transition after 4:07
   function finalTransition() {
     byLine.style.opacity = "0";
     openMessage.style.opacity = "0";
@@ -53,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sorryText.classList.remove("glow");
   }
 
-  clickOverlay.addEventListener("click", async () => {
+  clickOverlay.addEventListener("click", () => {
     clickOverlay.classList.add("fadeOut");
 
     setTimeout(() => {
@@ -64,13 +63,17 @@ document.addEventListener("DOMContentLoaded", () => {
         el.classList.add("visible");
       });
 
+      // Play audio after click
       bgm.volume = 1.0;
-      bgm.play().catch(() => {
-        alert("Audio autoplay failed. Click the page again to allow it.");
-      });
+      const tryPlay = bgm.play();
+      if (tryPlay && tryPlay.catch) {
+        tryPlay.catch(() => {
+          alert("Autoplay blocked. Click the page again.");
+        });
+      }
 
       rotateByNames();
-      setTimeout(finalTransition, 247000);
+      setTimeout(finalTransition, 247000); // 4:07
     }, 1000);
   });
 });
