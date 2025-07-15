@@ -20,13 +20,14 @@ const names = [
 let index = 0;
 const nameSpan = document.getElementById("nameCycle");
 const byLine = document.getElementById("byLine");
-const overlay = document.getElementById("overlay");
-const bgm = document.getElementById("bgm");
 const sorryText = document.getElementById("sorryText");
 const openMessage = document.getElementById("openMessage");
+const scrollNames = document.getElementById("scrollNames");
+const clickOverlay = document.getElementById("clickOverlay");
+const mainContent = document.getElementById("mainContent");
+const bgm = document.getElementById("bgm");
 
 // Build scroll-names with colored "Sanuuly"
-const scrollNames = document.getElementById("scrollNames");
 const nameList = [
   "Xuyis", "INVATIVITY", "Almighty", "Asus",
   "Sanuuly", "Umi", "Rusk", "Sharn", "Zvmt1", "Bryson", "JuntBusta", "Tav"
@@ -39,9 +40,9 @@ scrollNames.innerHTML = nameList
       return `<span>${name}</span>`;
     }
   })
-  .join(" • ");
+  .join(" • ") + " • "; // add trailing separator for smooth scroll
 
-// Cycle the "- By" names as before
+// Function to cycle "- By" names
 function cycleNames() {
   const name = names[index];
   nameSpan.textContent = name;
@@ -64,21 +65,39 @@ function cycleNames() {
   }
 }
 
-setTimeout(cycleNames, 2000);
+// Start cycling names with delay once main content is visible
+function startCycle() {
+  setTimeout(cycleNames, 2000);
+}
 
-// After 4:07 (247000 ms), switch text and fade elements
-setTimeout(() => {
-  // Fade out bottom message and byLine
+// At 4:07 (247000ms) change text and fade elements
+function startFinalSequence() {
   byLine.style.opacity = "0";
   openMessage.style.opacity = "0";
 
-  // Change main text smoothly
   sorryText.style.transition = "color 2s ease";
   sorryText.textContent = "Thanks for the memories <3";
-}, 247000);
+}
 
-// Play audio after click on overlay, then hide overlay
-overlay.addEventListener("click", () => {
-  bgm.play();
-  overlay.style.display = "none";
+// On clicking the initial Click text overlay
+clickOverlay.addEventListener("click", () => {
+  // Fade out the click overlay
+  clickOverlay.classList.add("fadeOut");
+  // After fade out, hide overlay and show main content
+  setTimeout(() => {
+    clickOverlay.style.display = "none";
+    mainContent.style.display = "block";
+
+    // Fade in main content
+    setTimeout(() => {
+      mainContent.classList.add("visible");
+      // Play audio
+      bgm.play();
+      // Start the cycle of names
+      startCycle();
+
+      // Schedule the final sequence at 4:07
+      setTimeout(startFinalSequence, 247000);
+    }, 100); // slight delay for opacity transition
+  }, 1500); // matches CSS fadeOut transition
 });
