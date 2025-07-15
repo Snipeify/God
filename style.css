@@ -1,0 +1,100 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+.fade-in {
+  animation: fadeInSlow 6s ease-in forwards;
+}
+
+@keyframes fadeInSlow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.glow {
+  font-size: 4em;
+  text-align: center;
+  margin-top: 20vh;
+  animation: glowAnim 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowAnim {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #ccc;
+  }
+  to {
+    text-shadow: 0 0 30px #fff, 0 0 60px #ccc;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+#byLine {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.bottom-right {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  text-align: right;
+  animation: slideUp 2s ease forwards;
+}
+
+.open {
+  font-size: 1.3em;
+  font-weight: bold;
+  animation: popOpen 2s ease-in-out infinite alternate;
+}
+
+@keyframes popOpen {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+.reason {
+  margin-top: 10px;
+  font-size: 0.9em;
+  max-width: 300px;
+}
+
+.scroll-names {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 0.9em;
+  color: #bbb;
+}
+
+.scroll-names::after {
+  content: "Xuyis • INVATIVITY • Almighty • Asus • Sanuuly • Umi • Rusk • Sharn • Zvmt1 • Bryson • JuntBusta • Tav • ";
+  animation: scrollText 60s linear infinite;
+  display: inline-block;
+}
+
+@keyframes scrollText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.final-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5em;
+  text-align: center;
+  color: white;
+  display: none;
+}
