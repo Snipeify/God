@@ -20,18 +20,20 @@ const names = [
 let index = 0;
 const nameSpan = document.getElementById("nameCycle");
 const byLine = document.getElementById("byLine");
-const overlay = document.getElementById("overlay");
-const bgm = document.getElementById("bgm");
 const sorryText = document.getElementById("sorryText");
 const openMessage = document.getElementById("openMessage");
+const scrollNamesInner = document.getElementById("scrollNamesInner");
+const clickOverlay = document.getElementById("clickOverlay");
+const mainContent = document.getElementById("mainContent");
+const bgm = document.getElementById("bgm");
 
-// Build scroll-names with colored "Sanuuly"
-const scrollNames = document.getElementById("scrollNames");
 const nameList = [
   "Xuyis", "INVATIVITY", "Almighty", "Asus",
   "Sanuuly", "Umi", "Rusk", "Sharn", "Zvmt1", "Bryson", "JuntBusta", "Tav"
 ];
-scrollNames.innerHTML = nameList
+
+// Build scrolling names with "Sanuuly" yellow and duplicate for seamless scroll
+scrollNamesInner.innerHTML = nameList
   .map(name => {
     if (name === "Sanuuly") {
       return `<span class="sanuuly">${name}</span>`;
@@ -39,9 +41,9 @@ scrollNames.innerHTML = nameList
       return `<span>${name}</span>`;
     }
   })
-  .join(" • ");
+  .join(" • ") + " • ";
+scrollNamesInner.innerHTML += scrollNamesInner.innerHTML; // duplicate for infinite scroll
 
-// Cycle the "- By" names as before
 function cycleNames() {
   const name = names[index];
   nameSpan.textContent = name;
@@ -64,21 +66,29 @@ function cycleNames() {
   }
 }
 
-setTimeout(cycleNames, 2000);
+function startCycle() {
+  setTimeout(cycleNames, 2000);
+}
 
-// After 4:07 (247000 ms), switch text and fade elements
-setTimeout(() => {
-  // Fade out bottom message and byLine
+function startFinalSequence() {
   byLine.style.opacity = "0";
   openMessage.style.opacity = "0";
 
-  // Change main text smoothly
   sorryText.style.transition = "color 2s ease";
   sorryText.textContent = "Thanks for the memories <3";
-}, 247000);
+}
 
-// Play audio after click on overlay, then hide overlay
-overlay.addEventListener("click", () => {
-  bgm.play();
-  overlay.style.display = "none";
+clickOverlay.addEventListener("click", () => {
+  clickOverlay.classList.add("fadeOut");
+  setTimeout(() => {
+    clickOverlay.style.display = "none";
+    mainContent.style.display = "block";
+
+    setTimeout(() => {
+      mainContent.classList.add("visible");
+      bgm.play();
+      startCycle();
+      setTimeout(startFinalSequence, 247000);
+    }, 100);
+  }, 1500);
 });
