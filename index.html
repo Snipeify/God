@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,12 +9,11 @@
 </head>
 <body>
 
-  <!-- Overlay for user interaction to enable audio -->
-  <div id="overlay">
-    <div id="overlayText">Click anywhere to play sound</div>
-  </div>
+  <!-- Initial centered Click text -->
+  <div id="clickOverlay">Click</div>
 
-  <div class="fade-in">
+  <!-- Main content hidden initially -->
+  <div id="mainContent" style="display:none;">
     <div class="scroll-names" id="scrollNames"></div>
 
     <div class="center">
