@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: black;
+  background-color: black;
   color: white;
   font-family: 'Orbitron', sans-serif;
   overflow: hidden;
@@ -16,8 +16,7 @@ body {
   color: white;
   cursor: pointer;
   user-select: none;
-  z-index: 10000;
-  opacity: 1;
+  z-index: 1000;
   transition: opacity 1.5s ease;
   text-align: center;
   width: 100vw;
@@ -28,13 +27,15 @@ body {
   pointer-events: none;
 }
 
-#mainContent {
+/* Make content fade in */
+.fade-in {
   opacity: 0;
-  transition: opacity 3s ease;
+  animation: fadeInSlow 4s ease forwards;
 }
 
-#mainContent.visible {
-  opacity: 1;
+@keyframes fadeInSlow {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .glow {
@@ -43,7 +44,6 @@ body {
   margin-top: 20vh;
   animation: glowAnim 2s ease-in-out infinite alternate;
   text-shadow: 0 0 10px #fff, 0 0 20px #ccc;
-  transition: color 1s ease;
 }
 
 @keyframes glowAnim {
@@ -57,11 +57,11 @@ body {
 
 .center {
   text-align: center;
-  backdrop-filter: blur(3px);
+  z-index: 5;
 }
 
 #byLine {
-  font-size: 1.2em;
+  font-size: 1.3em;
   margin-top: 10px;
   transition: opacity 1s ease;
 }
@@ -71,9 +71,7 @@ body {
   bottom: 20px;
   right: 20px;
   text-align: right;
-  animation: slideUp 2s ease forwards;
-  backdrop-filter: blur(3px);
-  transition: opacity 1s ease;
+  z-index: 5;
 }
 
 .open {
@@ -105,39 +103,28 @@ body {
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
-  z-index: 5;
+  z-index: 10;
   height: 3.2em;
 }
 
 #scrollNamesInner {
   display: inline-block;
   white-space: nowrap;
-  font-size: 2.5em;
+  font-size: 2.2em;
   color: #bbb;
   font-weight: 600;
-  animation: scrollLeft 120s linear infinite;
+  animation: scrollLeft 60s linear infinite;
 }
 
-#scrollNamesInner span.sanuuly {
+#scrollNamesInner span {
+  margin-right: 2em;
+}
+
+#scrollNamesInner .sanuuly {
   color: yellow;
 }
 
 @keyframes scrollLeft {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.final-message {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2.5em;
-  text-align: center;
-  color: white;
-  display: none;
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
 }
