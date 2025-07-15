@@ -29,10 +29,10 @@ body {
 }
 
 .fade-in {
-  animation: fadeInSlow 6s ease-in forwards;
+  animation: fadeInVerySlow 15s ease-in forwards;
 }
 
-@keyframes fadeInSlow {
+@keyframes fadeInVerySlow {
   from { opacity: 0; }
   to { opacity: 1; }
 }
@@ -93,13 +93,14 @@ body {
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
-  font-size: 0.9em;
+  font-size: 1.5em; /* Enlarged text */
   color: #bbb;
+  z-index: 5;
 }
 
 .scroll-names::after {
   content: "Xuyis • INVATIVITY • Almighty • Asus • Sanuuly • Umi • Rusk • Sharn • Zvmt1 • Bryson • JuntBusta • Tav • ";
-  animation: scrollText 60s linear infinite;
+  animation: scrollText 160s linear infinite; /* Slower scroll */
   display: inline-block;
 }
 
