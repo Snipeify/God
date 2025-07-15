@@ -7,39 +7,34 @@ body {
   overflow: hidden;
 }
 
-/* Overlay styles */
-#overlay {
+#clickOverlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5em;
   color: white;
-  font-size: 2.5em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
   cursor: pointer;
   user-select: none;
-}
-
-#overlayText {
-  padding: 20px 40px;
-  border: 2px solid white;
-  border-radius: 10px;
+  z-index: 10000;
+  opacity: 1;
+  transition: opacity 1.5s ease;
   text-align: center;
+  width: 100vw;
 }
 
-.fade-in {
-  animation: fadeInVerySlow 15s ease-in forwards;
+#clickOverlay.fadeOut {
+  opacity: 0;
+  pointer-events: none;
 }
 
-@keyframes fadeInVerySlow {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+#mainContent {
+  opacity: 0;
+  transition: opacity 3s ease;
+}
+
+#mainContent.visible {
+  opacity: 1;
 }
 
 .glow {
@@ -108,35 +103,31 @@ body {
   position: absolute;
   top: 10px;
   width: 100%;
-  text-align: center;
-  white-space: nowrap;
   overflow: hidden;
+  white-space: nowrap;
+  z-index: 5;
+  height: 3.2em;
+}
+
+#scrollNamesInner {
+  display: inline-block;
+  white-space: nowrap;
   font-size: 2.5em;
   color: #bbb;
-  z-index: 5;
   font-weight: 600;
+  animation: scrollLeft 120s linear infinite;
 }
 
-.scroll-names::after {
-  content: "Xuyis • INVATIVITY • Almighty • Asus • ";
-  animation: scrollText 240s linear infinite;
-  display: inline-block;
-}
-
-.scroll-names span {
-  white-space: nowrap;
-}
-
-.scroll-names span.sanuuly {
+#scrollNamesInner span.sanuuly {
   color: yellow;
 }
 
-@keyframes scrollText {
+@keyframes scrollLeft {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0%);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
