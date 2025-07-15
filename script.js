@@ -19,12 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const openMessage = document.getElementById("openMessage");
   const bgm = document.getElementById("bgm");
 
-  // Build scrolling name line
+  // Fill top scroller with names
   scrollNamesInner.innerHTML =
     nameList.map(name =>
       `<span class="${name === "Sanuuly" ? "sanuuly" : ""}">${name}</span>`
     ).join(" ") + scrollNamesInner.innerHTML;
 
+  // Cycle -By names
   function rotateByNames(index = 0) {
     if (index >= cycleNames.length) {
       byLine.style.opacity = "0";
@@ -44,28 +45,5 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => rotateByNames(index + 1), delay);
   }
 
-  function finalTransition() {
-    byLine.style.opacity = "0";
-    openMessage.style.opacity = "0";
-    sorryText.textContent = "Thanks for the memories <3";
-    sorryText.classList.remove("glow");
-  }
-
-  clickOverlay.addEventListener("click", () => {
-    clickOverlay.classList.add("fadeOut");
-
-    setTimeout(() => {
-      clickOverlay.style.display = "none";
-      mainContent.style.display = "block";
-      bgm.play();
-
-      // Trigger fade-ins manually
-      document.querySelectorAll(".fade-in").forEach(el => {
-        el.classList.add("visible");
-      });
-
-      rotateByNames();
-      setTimeout(finalTransition, 247000); // 4:07 in ms
-    }, 1500);
-  });
-});
+  // Final transition after 4:07
+  function
