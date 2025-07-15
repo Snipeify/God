@@ -1,74 +1,71 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const names = [
-    "Spike",
-    "Trey",
-    "Priority",
-    "Strengthen",
-    "TreyCC",
-    "LostlnLA",
-    "JayyBeWithYou",
-    "Cerupt",
-    "Harmoney",
-    "Zeno",
-    "TGTreyPorter",
-    "equosim",
-    "TreyCreedoCrew",
-    "AkeliousR24",
-    "San",
-    "Akelious"
+  const nameList = [
+    "Xuyis", "INVATIVITY", "Almighty", "Asus", "Sanuuly", "Umi", "Rusk",
+    "Sharn", "Zvmt1", "Bryson", "JuntBusta", "Tav"
   ];
 
-  let index = 0;
-  const nameSpan = document.getElementById("nameCycle");
+  const cycleNames = [
+    "Spike", "Trey", "Priority", "Strengthen", "TreyCC", "LostlnLA",
+    "JayyBeWithYou", "Cerupt", "Harmoney", "Zeno", "TGTreyPorter",
+    "equosim", "TreyCreedoCrew", "AkeliousR24", "San", "Akelious"
+  ];
+
+  const clickOverlay = document.getElementById("clickOverlay");
+  const mainContent = document.getElementById("mainContent");
+  const scrollNamesInner = document.getElementById("scrollNamesInner");
+  const nameCycle = document.getElementById("nameCycle");
   const byLine = document.getElementById("byLine");
   const sorryText = document.getElementById("sorryText");
   const openMessage = document.getElementById("openMessage");
-  const scrollNamesInner = document.getElementById("scrollNamesInner");
-  const clickOverlay = document.getElementById("clickOverlay");
-  const mainContent = document.getElementById("mainContent");
   const bgm = document.getElementById("bgm");
 
-  const nameList = [
-    "Xuyis", "INVATIVITY", "Almighty", "Asus",
-    "Sanuuly", "Umi", "Rusk", "Sharn", "Zvmt1", "Bryson", "JuntBusta", "Tav"
-  ];
+  // Build scrolling name line
+  scrollNamesInner.innerHTML =
+    nameList.map(name =>
+      `<span class="${name === "Sanuuly" ? "sanuuly" : ""}">${name}</span>`
+    ).join(" ") + scrollNamesInner.innerHTML;
 
-  scrollNamesInner.innerHTML = nameList
-    .map(name => {
-      if (name === "Sanuuly") {
-        return `<span class="sanuuly">${name}</span>`;
-      } else {
-        return `<span>${name}</span>`;
-      }
-    })
-    .join(" • ") + " • ";
-  scrollNamesInner.innerHTML += scrollNamesInner.innerHTML;
+  function rotateByNames(index = 0) {
+    if (index >= cycleNames.length) {
+      byLine.style.opacity = "0";
+      return;
+    }
 
-  function cycleNames() {
-    const name = names[index];
-    nameSpan.textContent = name;
+    const name = cycleNames[index];
+    nameCycle.textContent = name;
 
     if (name === "TreyCreedoCrew") {
       setTimeout(() => {
-        nameSpan.textContent = "";
+        nameCycle.textContent = "";
       }, 1500);
     }
 
-    const delay = name === "Akelious" ? 4000 : 2000;
-    index++;
-
-    if (index < names.length) {
-      setTimeout(cycleNames, delay);
-    } else {
-      setTimeout(() => {
-        byLine.style.opacity = "0";
-      }, delay);
-    }
+    const delay = (name === "Akelious") ? 4000 : 2000;
+    setTimeout(() => rotateByNames(index + 1), delay);
   }
 
-  function startCycle() {
-    setTimeout(cycleNames, 2000);
+  function finalTransition() {
+    byLine.style.opacity = "0";
+    openMessage.style.opacity = "0";
+    sorryText.textContent = "Thanks for the memories <3";
+    sorryText.classList.remove("glow");
   }
 
-  function startFinalSequence() {
-    byLine.style.opacity = "0"
+  clickOverlay.addEventListener("click", () => {
+    clickOverlay.classList.add("fadeOut");
+
+    setTimeout(() => {
+      clickOverlay.style.display = "none";
+      mainContent.style.display = "block";
+      bgm.play();
+
+      // Trigger fade-ins manually
+      document.querySelectorAll(".fade-in").forEach(el => {
+        el.classList.add("visible");
+      });
+
+      rotateByNames();
+      setTimeout(finalTransition, 247000); // 4:07 in ms
+    }, 1500);
+  });
+});
