@@ -9,19 +9,14 @@ let nameSpan = document.getElementById("nameCycle");
 let byLine = document.getElementById("byLine");
 
 function cycleNames() {
-  let name = names[index];
-
+  const name = names[index];
   nameSpan.textContent = name;
 
-  // Special fade for "TreyCreedoCrew"
   if (name === "TreyCreedoCrew") {
-    setTimeout(() => {
-      nameSpan.textContent = "";
-    }, 1500);
+    setTimeout(() => { nameSpan.textContent = ""; }, 1500);
   }
 
-  // Pause longer on "Akelious"
-  let delay = (name === "Akelious") ? 4000 : 2000;
+  const delay = (name === "Akelious") ? 4000 : 2000;
 
   index++;
   if (index < names.length) {
@@ -40,3 +35,9 @@ setTimeout(() => {
   document.querySelector(".fade-in").style.display = "none";
   document.getElementById("finalMessage").style.display = "block";
 }, 247000);
+
+// Try to play audio once page is interacted
+const bgm = document.getElementById("bgm");
+document.body.addEventListener("click", () => {
+  bgm.play().catch(() => {});
+});
