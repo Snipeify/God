@@ -7,20 +7,6 @@ body {
   overflow: hidden;
 }
 
-/* Remove rain background image completely */
-.rain {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent; /* no image at all */
-  opacity: 0.15;
-  pointer-events: none;
-  z-index: -1;
-  filter: blur(1px);
-}
-
 .fade-in {
   animation: fadeInVerySlow 15s ease-in forwards;
 }
@@ -100,14 +86,14 @@ body {
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
-  font-size: 1.5em;
+  font-size: 2.5em; /* enlarged */
   color: #bbb;
   z-index: 5;
 }
 
 .scroll-names::after {
   content: "Xuyis • INVATIVITY • Almighty • Asus • Sanuuly • Umi • Rusk • Sharn • Zvmt1 • Bryson • JuntBusta • Tav • ";
-  animation: scrollText 160s linear infinite;
+  animation: scrollText 240s linear infinite; /* slower scroll */
   display: inline-block;
 }
 
