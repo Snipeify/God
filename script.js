@@ -51,12 +51,14 @@ setTimeout(() => {
   document.getElementById("finalMessage").style.display = "block";
 }, 247000);
 
-// Audio autoplay fallback:
+// Audio autoplay with user interaction fallback
 const bgm = document.getElementById("bgm");
+
 function tryPlayAudio() {
   const playPromise = bgm.play();
   if (playPromise !== undefined) {
     playPromise.catch(() => {
+      // Play on first user interaction
       document.body.addEventListener(
         "click",
         () => {
@@ -67,4 +69,5 @@ function tryPlayAudio() {
     });
   }
 }
+
 tryPlayAudio();
