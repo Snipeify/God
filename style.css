@@ -7,39 +7,36 @@ body {
   overflow: hidden;
 }
 
-/* Overlay styles */
-#overlay {
+/* The initial big Click text overlay */
+#clickOverlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5em;
   color: white;
-  font-size: 2.5em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
   cursor: pointer;
   user-select: none;
+  z-index: 10000;
+  opacity: 1;
+  transition: opacity 1.5s ease;
 }
 
-#overlayText {
-  padding: 20px 40px;
-  border: 2px solid white;
-  border-radius: 10px;
-  text-align: center;
+/* Fade out for the Click text */
+#clickOverlay.fadeOut {
+  opacity: 0;
+  pointer-events: none;
 }
 
-.fade-in {
-  animation: fadeInVerySlow 15s ease-in forwards;
+/* Main content fade-in container */
+#mainContent {
+  opacity: 0;
+  transition: opacity 3s ease;
 }
 
-@keyframes fadeInVerySlow {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+/* When visible */
+#mainContent.visible {
+  opacity: 1;
 }
 
 .glow {
@@ -117,18 +114,18 @@ body {
   font-weight: 600;
 }
 
-.scroll-names::after {
-  content: "Xuyis • INVATIVITY • Almighty • Asus • ";
-  animation: scrollText 240s linear infinite;
-  display: inline-block;
-}
-
 .scroll-names span {
   white-space: nowrap;
 }
 
 .scroll-names span.sanuuly {
   color: yellow;
+}
+
+.scroll-names::after {
+  content: "";
+  animation: scrollText 240s linear infinite;
+  display: inline-block;
 }
 
 @keyframes scrollText {
